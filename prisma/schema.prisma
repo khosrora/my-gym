@@ -13,8 +13,8 @@ datasource db {
 model User {
   id          Int      @id @default(autoincrement())
   phoneNumber String   @unique
-  fullname        String?   
-  haveGym     Boolean
+  fullname    String?   
+  haveGym     Boolean?  @default(false)
   role        USERROLE @default(CLIENT)
   codeOtp     Int
   createdAt   DateTime @default(now())
