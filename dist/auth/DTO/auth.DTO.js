@@ -11,9 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OtpCodeDTO = exports.PhoneNumberDTO = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class PhoneNumberDTO {
 }
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        type: String
+    }),
     (0, class_validator_1.Matches)(/^09(1[0-9]|3[0-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/, { message: "شماره تماس وارد شده معتبر نیست" }),
     __metadata("design:type", String)
 ], PhoneNumberDTO.prototype, "phoneNumber", void 0);
@@ -21,10 +25,16 @@ exports.PhoneNumberDTO = PhoneNumberDTO;
 class OtpCodeDTO {
 }
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        type: String
+    }),
     (0, class_validator_1.Matches)(/^09(1[0-9]|3[0-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/, { message: "شماره تماس وارد شده معتبر نیست" }),
     __metadata("design:type", String)
 ], OtpCodeDTO.prototype, "phoneNumber", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        type: Number
+    }),
     (0, class_validator_1.Min)(5, { message: "تعداد کاراکتر اشتباه است" }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)

@@ -14,7 +14,7 @@ RUN yarn install
 # Bundle app source
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 EXPOSE 8080
 

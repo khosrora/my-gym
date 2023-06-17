@@ -9,6 +9,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('my gym')
     .setDescription('The my gym API ')
     .setVersion('1.0')

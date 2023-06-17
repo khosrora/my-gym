@@ -9,5 +9,10 @@ export class UserService {
         private prisma: PrismaService
     ) { }
 
+    async findOneUser(id: number): Promise<object> {
+        console.log(id);
+        const user = await this.prisma.user.findUnique({ where: { id } })
+        return user;
+    }
 
 }

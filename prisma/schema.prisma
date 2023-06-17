@@ -12,7 +12,9 @@ datasource db {
 
 model User {
   id          Int      @id @default(autoincrement())
+  userCode    Int      @default(autoincrement())
   phoneNumber String   @unique
+  email       String?   
   fullname    String?   
   haveGym     Boolean?  @default(false)
   role        USERROLE @default(CLIENT)
