@@ -9,18 +9,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateProfileDto = void 0;
+exports.CreateGymDTO = void 0;
 const class_validator_1 = require("class-validator");
-class UpdateProfileDto {
+class CreateGymDTO {
 }
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], UpdateProfileDto.prototype, "fullname", void 0);
+], CreateGymDTO.prototype, "persianName", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], UpdateProfileDto.prototype, "email", void 0);
-exports.UpdateProfileDto = UpdateProfileDto;
-//# sourceMappingURL=user.DTO.js.map
+], CreateGymDTO.prototype, "englishName", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGymDTO.prototype, "phoneNumber", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGymDTO.prototype, "address", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGymDTO.prototype, "managerName", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGymDTO.prototype, "lat", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGymDTO.prototype, "long", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGymDTO.prototype, "description", void 0);
+exports.CreateGymDTO = CreateGymDTO;
+//# sourceMappingURL=gym.DTO.js.map

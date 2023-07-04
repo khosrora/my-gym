@@ -14,11 +14,12 @@ const user_module_1 = require("./user/user.module");
 const prisma_service_1 = require("./prisma/prisma.service");
 const prisma_module_1 = require("./prisma/prisma.module");
 const auth_module_1 = require("./auth/auth.module");
+const gym_module_1 = require("./gym/gym.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [user_module_1.UserModule, prisma_module_1.PrismaModule, auth_module_1.AuthModule],
+        imports: [user_module_1.UserModule, prisma_module_1.PrismaModule, auth_module_1.AuthModule, gym_module_1.GymModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, prisma_service_1.PrismaService],
     })

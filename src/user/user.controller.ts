@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Request, Put, Body } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Put, Body, Req } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { UpdateProfileDto } from './DTO/user.DTO';
@@ -14,7 +14,7 @@ export class UserController {
         private userService: UserService
     ) { }
 
-    
+
     @Get()
     async findOne(@Request() req: any) {
         const { id } = req.user;
@@ -23,10 +23,12 @@ export class UserController {
 
     @Put()
     async updateProfileUser(
-        @Body() body : UpdateProfileDto
-    ){
-        console.log(body);
-        return ""
+        @Req() req: any,
+        @Body() body: UpdateProfileDto
+    ) {
+        const { id } = req.user;
+        return this.userService.updateProfileUsesr(id, body)
     }
 
+    
 }   

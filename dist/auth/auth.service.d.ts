@@ -1,12 +1,16 @@
-import { HttpException } from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { Response } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
 export declare class AuthService {
     private prismaService;
     constructor(prismaService: PrismaService);
     get_otp(phoneNumber: string): Promise<HttpException>;
-    check_otp(phoneNumber: string, code: number): Promise<HttpException>;
-    findUser(phoneNumber: string): Promise<import(".prisma/client").User>;
+    check_otp(phoneNumber: string, code: number, res: Response): Promise<HttpException>;
+    get_accessToken(token: string, res: Response): Promise<HttpStatus>;
+    logout(res: Response): Promise<HttpException>;
+    findUserByPhone(phoneNumber: string): Promise<import(".prisma/client").User>;
     createUser(phoneNumber: string): Promise<HttpException>;
     sendCode(phoneNumber: string, code: number): Promise<void>;
-    createToken(id: number, time: string): Promise<any>;
+    setRefreshToken(id: number, res: Response): Promise<void>;
+    setAccessToken(id: number, res: Response): Promise<void>;
 }

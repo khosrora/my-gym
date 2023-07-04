@@ -4,5 +4,5 @@ export declare class UserController {
     private userService;
     constructor(userService: UserService);
     findOne(req: any): Promise<object>;
-    updateProfileUser(body: UpdateProfileDto): Promise<string>;
+    updateProfileUser(req: any, body: UpdateProfileDto): Promise<import("@nestjs/common").HttpException>;
 }

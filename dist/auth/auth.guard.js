@@ -19,12 +19,12 @@ let AuthGuard = class AuthGuard {
     }
     async canActivate(context) {
         const request = context.switchToHttp().getRequest();
-        const token = request.headers.authorization.split(" ")[1];
+        const token = request.cookies.accessToken;
         if (!token) {
             throw new common_1.UnauthorizedException();
         }
         try {
-            await jwt.verify(token, process.env.JWT_TOKEN, async (err, payload) => {
+            await jwt.verify(token, process.env.JWT_REFRESH_TOKEN, async (err, payload) => {
                 if (err)
                     throw new common_1.UnauthorizedException();
                 const user = await this.prismaService.user.findUnique({ where: { id: payload.id } });
