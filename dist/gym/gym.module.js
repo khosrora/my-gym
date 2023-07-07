@@ -11,13 +11,14 @@ const common_1 = require("@nestjs/common");
 const gym_service_1 = require("./gym.service");
 const gym_controller_1 = require("./gym.controller");
 const prisma_module_1 = require("../prisma/prisma.module");
+const app_module_1 = require("./../app.module");
 let GymModule = class GymModule {
 };
 GymModule = __decorate([
     (0, common_1.Module)({
         providers: [gym_service_1.GymService],
         controllers: [gym_controller_1.GymController],
-        imports: [prisma_module_1.PrismaModule]
+        imports: [prisma_module_1.PrismaModule, (0, common_1.forwardRef)(() => app_module_1.AppModule)]
     })
 ], GymModule);
 exports.GymModule = GymModule;

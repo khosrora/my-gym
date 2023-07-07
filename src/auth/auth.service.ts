@@ -1,13 +1,15 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Response } from 'express'
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as jwt from "jsonwebtoken";
+import { AppService } from 'src/app.service';
 
 @Injectable()
 export class AuthService {
 
     constructor(
-        private prismaService: PrismaService
+        private prismaService: PrismaService,
+        private appService: AppService
     ) { }
 
     async get_otp(phoneNumber: string) {
@@ -24,7 +26,7 @@ export class AuthService {
             await this.prismaService.user.update({
                 where: { phoneNumber },
                 data: {
-                    codeOtp: Math.floor(100000 + Math.random() * 900000)
+                    codeOtp: await this.appService.createRandomNumber()
                 }
             })
             await this.setRefreshToken(user.id, res);
@@ -46,24 +48,33 @@ export class AuthService {
     }
 
     async findUserByPhone(phoneNumber: string) {
-        return await this.prismaService.user.findUnique({
-            where: {
-                phoneNumber
-            }
-        })
+        try {
+            return await this.prismaService.user.findUnique({
+                where: {
+                    phoneNumber
+                }
+            })
+        } catch (error) {
+            throw new BadRequestException(error.message)
+        }
     }
 
     async createUser(phoneNumber: string) {
-        const newUser = await this.prismaService.user.create({
-            data: {
-                phoneNumber,
-                codeOtp: Math.floor(100000 + Math.random() * 900000),
-            }
-        });
+        try {
+            const code = await this.appService.createRandomNumber();
+            const newUser = await this.prismaService.user.create({
+                data: {
+                    phoneNumber,
+                    codeOtp: code,
+                }
+            });
 
-        await this.sendCode(phoneNumber, newUser.codeOtp);
+            await this.sendCode(phoneNumber, newUser.codeOtp);
 
-        return new HttpException('کد اعتبار سنجی برای شما ارسال شد', HttpStatus.OK)
+            return new HttpException('کد اعتبار سنجی برای شما ارسال شد', HttpStatus.OK)
+        } catch (error) {
+            throw new BadRequestException(error.message)
+        }
     }
 
     async sendCode(phoneNumber: string, code: number) {

@@ -1,7 +1,7 @@
-import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Request, Patch, Param } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { CreateGymDTO } from './DTO/gym.DTO';
+import { CreateGymDTO, UpdateGymDTO } from './DTO/gym.DTO';
 import { GymService } from './gym.service';
 
 @Controller("gym")
@@ -19,9 +19,24 @@ export class GymController {
         @Body() body: CreateGymDTO,
         @Request() req: any
     ) {
-        const userId = req.user;
-        
-        return body;
+        const { id } = req.user;
+        return this.gymService.add_request_gym(id, body);
+    }
+
+    @Patch("edit")
+    upadteGym(
+        @Body() body: UpdateGymDTO,
+        @Request() req: any
+    ) {
+        const { id } = req.user;
+        return this.gymService.edit_gym(id, body);
+    }
+
+    @Post("add_coach")
+    createCoach(
+        @Body() body: any
+    ) {
+        console.log(body);
     }
 
 }

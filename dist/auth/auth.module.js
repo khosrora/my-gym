@@ -11,13 +11,14 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
 const prisma_module_1 = require("../prisma/prisma.module");
+const app_module_1 = require("../app.module");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
     (0, common_1.Module)({
         providers: [auth_service_1.AuthService],
         controllers: [auth_controller_1.AuthController],
-        imports: [prisma_module_1.PrismaModule]
+        imports: [prisma_module_1.PrismaModule, (0, common_1.forwardRef)(() => app_module_1.AppModule)]
     })
 ], AuthModule);
 exports.AuthModule = AuthModule;

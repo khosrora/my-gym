@@ -12,21 +12,23 @@ datasource db {
 
 model User {
   id          Int      @id @default(autoincrement())
-  userCode    Int      @default(autoincrement())
   phoneNumber String   @unique
-  GymId       Gym?     
-  email       String?   
-  fullname    String?   
+  GymId       Gym?
+  email       String?
+  fullname    String?
   role        USERROLE @default(CLIENT)
   codeOtp     Int
+  gymCoach    Int?
+  description String?   
   createdAt   DateTime @default(now())
 }
 
 model Gym {
-  id          Int      @id @default(autoincrement())
-  user        User @relation(fields: [userId], references: [id])
-  userId      Int  @unique
-  uniqueCode  Int      
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int       @unique
+  gallery     Gallery[]
+  uniqueCode  Int
   persianName String
   englishName String
   phoneNumber String?
@@ -35,13 +37,22 @@ model Gym {
   lat         String?
   long        String?
   description String?
-  isOpen      Boolean? @default(true) 
-  expiresTime Int
+  isOpen      Boolean?  @default(true)
+  expiresTime DateTime
+  creadetAt   DateTime  @default(now())
 }
 
+model Gallery {
+  id        Int      @id @default(autoincrement())
+  Gym       Gym?     @relation(fields: [gymId], references: [id])
+  gymId     Int
+  imageName String
+  link      String
+  creadetAt DateTime @default(now())
+}
 
-enum USERROLE  {
-  CLIENT 
-  MANAGER 
+enum USERROLE {
+  CLIENT
+  MANAGER
   COACH
 }
